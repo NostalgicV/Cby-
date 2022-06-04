@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+    <title>AdminX</title>
+
+
+    <div th:include="common ::common_head"></div>
+
+    <style>
+        .a{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 0.25rem;
+        }
+        .c-body{
+            flex: 1 1 auto;
+            padding: 1rem 1rem;
+        }
+        .c-title{
+            margin-bottom:.5rem
+        }
+        .c-text:last-child{margin-bottom:0}
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+        window.onload=function () {
+            var btn = document.getElementsByName("selectMd");
+            var img = document.getElementsByName("ccc");
+            var pl = [[${pathList}]];
+            for (i = 0; i < btn.length; i++) {
+                var title = btn[i].parentNode.parentNode.parentNode.children[0].innerHTML;
+                var input = btn[i].parentNode.children[0];
+                var child = btn[i].parentNode.parentNode.parentNode.parentNode.parentNode.children[0];
+                // alert(pl[i]);
+                // alert(child.getAttribute("src"))
+                // child.src=pl[i];
+                input.value = title
+
+            }
+
+                for (i=0;i<img.length;i++){
+                   img[i].setAttribute("src",pl[i])
+                    // alert(attribute)
+                }
+
+        }
+    </script>
+
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- 左边开始-->
+    <div th:replace="common :: left_menu"></div>
+    <!-- 左边结束-->
+    
+    <!--主要内容开始-->
+    <div class="main-content" >
+        <!-- 头部分开始-->
+        <div th:replace="common :: head_menu">
+            <button>sss</button>
+        </div>
+        <!-- 头部分结束-->
+<!--        <div>-->
+        <div class="row">
+        <div th:each="title:${titleList}" >
+
+            <div class="col-md-2 ">
+                <br>
+                <div class="a" style="width: 18rem; " >
+                    <img class="card-img-top " style="height: 178px;object-fit: cover" name="ccc"  src="images/test1.jpg">
+                    <div class="c-body">
+                        <h4 class="c-title" style="text-align: center;float: top"  th:text="${title}" ></h4>
+                        <br>
+
+                        <div style="text-align: center">
+                            <form th:action="@{/md.html}">
+                                <input  style="display: none" name="title">
+                                <button   class="btn btn-primary" name="selectMd" type="submit">Go somewhere</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+    </div>
+            <button id="btn">cccc</button>
+    </div>
+        </div>
+    <!--主要内容结束-->
+</section>
+
+<div th:include="common :: commonscript"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>AdminX</title>
+
+    <div th:include="common ::common_head"></div>
+    <script type="text/javascript" th:inline="javascript">
+        window.onload=function (){
+            var mdText =[[${mdText}]]
+            document.getElementById('content').innerHTML = marked.parse(mdText);
+        }
+    </script>
+
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- 左边开始-->
+    <div th:replace="common :: left_menu"></div>
+    <!-- 左边结束-->
+    
+    <!--主要内容开始-->
+    <div class="main-content" >
+        <!-- 头部分开始-->
+        <div th:replace="common :: head_menu"></div>
+        <!-- 头部分结束-->
+        <div class="row">
+            <div class="col-md-10">
+                <div id="content" style="width: 65%;margin: 0 auto"></div>
+            </div>
+            <button class="btn btn-success" style="margin-top: 300px">编辑</button>
+        </div>
+    </div>
+</section>
+<div th:include="common :: commonscript"></div>
+
+
+</body>
+</html>

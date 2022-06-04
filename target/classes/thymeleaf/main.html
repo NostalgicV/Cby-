@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>AdminX</title>
+
+  <!--图表样式-->
+<!--  <link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">-->
+<!--  <link href="js/iCheck/skins/square/square.css" rel="stylesheet">-->
+<!--  <link href="js/iCheck/skins/square/red.css" rel="stylesheet">-->
+<!--  <link href="js/iCheck/skins/square/blue.css" rel="stylesheet">-->
+
+<!--  &lt;!&ndash;日历样式&ndash;&gt;-->
+<!--  <link href="css/clndr.css" rel="stylesheet">-->
+  <!--common-->
+    <div th:include="common ::common_head"></div>
+
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- 左边开始-->
+    <div th:replace="common :: left_menu"></div>
+    <!-- 左边结束-->
+    
+    <!--主要内容开始-->
+    <div class="main-content" >
+
+        <!-- 头部分开始-->
+        <div th:replace="common :: head_menu"></div>
+        <!-- 头部分结束-->
+
+
+    </div>
+    <!--主要内容结束-->
+</section>
+
+<!-- 最后把js文件的页面加载速度 -->
+<div th:include="common :: commonscript"></div>
+
+<!--&lt;!&ndash;饼形图&ndash;&gt;-->
+<!--<script src="js/easypiechart/jquery.easypiechart.js"></script>-->
+<!--<script src="js/easypiechart/easypiechart-init.js"></script>-->
+
+<!--&lt;!&ndash;Sparkline图表&ndash;&gt;-->
+<!--<script src="js/sparkline/jquery.sparkline.js"></script>-->
+<!--<script src="js/sparkline/sparkline-init.js"></script>-->
+
+<!--&lt;!&ndash;icheck &ndash;&gt;-->
+<!--<script src="js/iCheck/jquery.icheck.js"></script>-->
+<!--<script src="js/icheck-init.js"></script>-->
+
+<!--&lt;!&ndash; jQuery 浮标图表&ndash;&gt;-->
+<!--<script src="js/flot-chart/jquery.flot.js"></script>-->
+<!--<script src="js/flot-chart/jquery.flot.tooltip.js"></script>-->
+<!--<script src="js/flot-chart/jquery.flot.resize.js"></script>-->
+
+
+<!--&lt;!&ndash;莫里斯图表&ndash;&gt;-->
+<!--<script src="js/morris-chart/morris.js"></script>-->
+<!--<script src="js/morris-chart/raphael-min.js"></script>-->
+
+<!--&lt;!&ndash;日历&ndash;&gt;-->
+<!--<script src="js/calendar/clndr.js"></script>-->
+<!--<script src="js/calendar/evnt.calendar.init.js"></script>-->
+<!--<script src="js/calendar/moment-2.2.1.js"></script>-->
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>-->
+
+<!--常见的所有页面的脚本-->
+
+
+<!--仪表板的图表-->
+<script src="js/dashboard-chart-init.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">-->
+<!--    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="ThemeBucket">-->
+<!--    <link rel="shortcut icon" href="#" type="image/png">-->
+    <link rel="stylesheet" href="editor.md-master/examples/css/style.css" />
+    <link rel="stylesheet" href="editor.md-master/css/editormd.css" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <script src="editor.md-master/examples/js/jquery.min.js"></script>
+    <script src="editor.md-master/editormd.min.js"></script>
+    <script type="text/javascript">
+        var testEditor;
+        $(function() {
+           testEditor = editormd("test-editormd", {
+                width   : "100%",
+                height  : 600,
+                syncScrolling : "single",
+                path    : "editor.md-master/lib/"
+            });
+        });
+        window.onload=function (){
+            document.getElementById("save").onclick=function (){
+                var title = document.getElementById("title");
+
+                if (title.value==""){
+                    alert("请输入标题");
+                }else {
+                    var select = document.getElementById("select");
+                    var markdown = testEditor.getMarkdown();
+                    var formData = new FormData;
+                    formData.append("id", select.value);
+                    formData.append("md", markdown);
+                    formData.append("title", title.value);
+                    $.ajax({
+                        url: "/saveMd",
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (result) {
+                            console.log(result)
+                        }
+                    })
+                }
+                return false;
+            }
+            document.getElementById("image_up").onclick=function (){
+                var elementById = document.getElementById("btn_file");
+                var formData = new FormData;
+                elementById.click();
+                elementById.onchange=function (){
+                    formData.append("images",elementById.files[0])
+                    // alert(elementById.files[0].size)
+                    $.ajax({
+                        url:'/save',
+                        type:"POST",
+                        data:formData,
+                        contentType:false,
+                        processData:false,
+                        success:function (result){
+                            alert("![]("+result+")")
+                        }
+                    })
+
+                    elementById.value=null;
+                }
+
+                return false;
+            }
+            document.getElementById("select").onchange=function (){
+                if (this.value=="add"){
+                document.getElementById("input").click();
+                document.getElementById("saveStyle").onclick=function (){
+                   var newStyle=document.getElementById("newStyle").value
+                    var formData = new FormData;
+                    formData.append("newStyle",newStyle)
+                    $.ajax({
+                        url:"/style",
+                        type:"POST",
+                        data:formData,
+                        contentType:false,
+                        processData:false,
+                        success:function (result){
+                            document.getElementById("select").innerHTML+="<option value="+result +">"+newStyle+"</option>"
+                        }
+                    })
+                }
+
+                }
+            }
+        }
+    </script>
+
+  <title>AdminX</title>
+    <div th:include="common ::common_head"></div>
+</head>
+
+<body class="sticky-header">
+
+    <section>
+        <!-- 左边开始-->
+        <div th:replace="common :: left_menu"></div>
+        <!-- 左边结束-->
+
+        <!--主要内容开始-->
+        <div class="main-content" >
+            <!-- 头部分开始-->
+            <div th:replace="common :: head_menu"></div>
+            <!-- 头部分结束-->
+            <br>
+            <form>
+            <div id="layout" >
+                <div id="test-editormd">
+                <textarea style="display:none" id="text" ></textarea>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-1" >
+                            <input type="file" id="btn_file"  style="display: none">
+                            <button id="image_up" class="btn btn-primary" >图片</button>
+                        </div>
+
+                        <div class="col-md-3">
+                            <input id="title" type="text" class="form-control" placeholder="标题" aria-describedby="basic-addon2" style="width: 200px">
+                        </div>
+
+                        <div class="col-md-3">
+                            <select id="select" >
+                                <option th:each="style:${style}"  th:value="${style.id}" th:text="${style.name}">类别</option>
+                                <option value="add">新增</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-">
+                            <button id="save"  class="btn btn-success"  >提交</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </form>
+
+        </div>
+    </section>
+    <button type="button" id="input" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="display: none"></button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 270px">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 50px;background: #00c4ff">
+                        <h5 class="modal-title" id="exampleModalLabel">新建分类</h5>
+                    </div>
+                    <div class="modal-body" style="height: 50px">
+                        <input id="newStyle" type="text" class="form-control" placeholder="name" aria-label="name" aria-describedby="basic-addon2">
+                    </div>
+                    <div class="modal-footer" style="height: 70px">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="saveStyle" data-dismiss="modal">新增</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:include="common :: commonscript"></div>
+
+
+
+</body>
+</html>
