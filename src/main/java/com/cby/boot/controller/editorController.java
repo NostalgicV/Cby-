@@ -54,12 +54,12 @@ public class editorController {
     public String images_up(MultipartFile images,Model model) throws Exception {
         File file = MultipartFileToFileUtils.multipartFileToFile(images);
 
-        BasicCOSCredentials basicCOSCredentials = new BasicCOSCredentials("AKIDzWqwoSr0sUptgDTSAcnhKhjZAWdU5QWN","cy4vWrxpRnumOkqgGafU4OSGqBG5g15u");
-        ClientConfig clientConfig = new ClientConfig(new Region("ap-nanjing"));
+        BasicCOSCredentials basicCOSCredentials = new BasicCOSCredentials("","");
+        ClientConfig clientConfig = new ClientConfig(new Region(""));
 //        密钥注入
         COSClient cosClient = new COSClient(basicCOSCredentials,clientConfig);
 
-        String bucketName="boke-1307909520";
+        String bucketName="";
         String key="Md/"+file.getName();
 //        文件注入,存储位置注入
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName,key,file);
